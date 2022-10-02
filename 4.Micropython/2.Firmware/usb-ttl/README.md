@@ -1,0 +1,1 @@
+使用前先安装 Python 库：pip install esptool
