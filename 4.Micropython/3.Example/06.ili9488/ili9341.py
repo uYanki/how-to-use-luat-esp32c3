@@ -4,7 +4,7 @@ from math import cos, sin, pi, radians
 from sys import implementation
 from framebuf import FrameBuffer, RGB565  # type: ignore
 import ustruct  # type: ignore
-from micropython import const
+
 
 def color565(r, g, b):
     """Return RGB565 color value.
@@ -24,69 +24,64 @@ class Display(object):
     """
 
     # Command constants from ILI9341 datasheet
-    ILI9488_TFTWIDTH =const(320)
-    ILI9488_TFTHEIGHT = const(480)
+    NOP = const(0x00)  # No-op
+    SWRESET = const(0x01)  # Software reset
+    RDDID = const(0x04)  # Read display ID info
+    RDDST = const(0x09)  # Read display status
+    SLPIN = const(0x10)  # Enter sleep mode
+    SLPOUT = const(0x11)  # Exit sleep mode
+    PTLON = const(0x12)  # Partial mode on
+    NORON = const(0x13)  # Normal display mode on
+    RDMODE = const(0x0A)  # Read display power mode
+    RDMADCTL = const(0x0B)  # Read display MADCTL
+    RDPIXFMT = const(0x0C)  # Read display pixel format
+    RDIMGFMT = const(0x0D)  # Read display image format
+    RDSELFDIAG = const(0x0F)  # Read display self-diagnostic
+    INVOFF = const(0x20)  # Display inversion off
+    INVON = const(0x21)  # Display inversion on
+    GAMMASET = const(0x26)  # Gamma set
+    DISPLAY_OFF = const(0x28)  # Display off
+    DISPLAY_ON = const(0x29)  # Display on
+    SET_COLUMN = const(0x2A)  # Column address set
+    SET_PAGE = const(0x2B)  # Page address set
+    WRITE_RAM = const(0x2C)  # Memory write
+    READ_RAM = const(0x2E)  # Memory read
+    PTLAR = const(0x30)  # Partial area
+    VSCRDEF = const(0x33)  # Vertical scrolling definition
+    MADCTL = const(0x36)  # Memory access control
+    VSCRSADD = const(0x37)  # Vertical scrolling start address
+    PIXFMT = const(0x3A)  # COLMOD: Pixel format set
+    WRITE_DISPLAY_BRIGHTNESS = const(0x51)  # Brightness hardware dependent!
+    READ_DISPLAY_BRIGHTNESS = const(0x52)
+    WRITE_CTRL_DISPLAY = const(0x53)
+    READ_CTRL_DISPLAY = const(0x54)
+    WRITE_CABC = const(0x55)  # Write Content Adaptive Brightness Control
+    READ_CABC = const(0x56)  # Read Content Adaptive Brightness Control
+    WRITE_CABC_MINIMUM = const(0x5E)  # Write CABC Minimum Brightness
+    READ_CABC_MINIMUM = const(0x5F)  # Read CABC Minimum Brightness
+    FRMCTR1 = const(0xB1)  # Frame rate control (In normal mode/full colors)
+    FRMCTR2 = const(0xB2)  # Frame rate control (In idle mode/8 colors)
+    FRMCTR3 = const(0xB3)  # Frame rate control (In partial mode/full colors)
+    INVCTR = const(0xB4)  # Display inversion control
+    DFUNCTR = const(0xB6)  # Display function control
+    PWCTR1 = const(0xC0)  # Power control 1
+    PWCTR2 = const(0xC1)  # Power control 2
+    PWCTRA = const(0xCB)  # Power control A
+    PWCTRB = const(0xCF)  # Power control B
+    VMCTR1 = const(0xC5)  # VCOM control 1
+    VMCTR2 = const(0xC7)  # VCOM control 2
+    RDID1 = const(0xDA)  # Read ID 1
+    RDID2 = const(0xDB)  # Read ID 2
+    RDID3 = const(0xDC)  # Read ID 3
+    RDID4 = const(0xDD)  # Read ID 4
+    GMCTRP1 = const(0xE0)  # Positive gamma correction
+    GMCTRN1 = const(0xE1)  # Negative gamma correction
+    DTCA = const(0xE8)  # Driver timing control A
+    DTCB = const(0xEA)  # Driver timing control B
+    POSC = const(0xED)  # Power on sequence control
+    ENABLE3G = const(0xF2)  # Enable 3 gamma control
+    PUMPRC = const(0xF7)  # Pump ratio control
 
-    ILI9488_NOP  =   const(0x00)
-    ILI9488_SWRESET= const(0x01)
-    ILI9488_RDDID =  const(0x04)
-    ILI9488_RDDST  = const(0x09)
-
-    ILI9488_SLPIN  = const(0x10)
-    ILI9488_SLPOUT=  const(0x11)
-    ILI9488_PTLON  = const(0x12)
-    ILI9488_NORON  = const(0x13)
-
-    ILI9488_RDMODE  =const(0x0A)
-    ILI9488_RDMADCTL=  const(0x0B)
-    ILI9488_RDPIXFMT = const(0x0C)
-    ILI9488_RDIMGFMT  =const(0x0D)
-    ILI9488_RDSELFDIAG= const( 0x0F)
-
-    ILI9488_INVOFF = const(0x20)
-    ILI9488_INVON  = const(0x21)
-    ILI9488_GAMMASET= const(0x26)
-    ILI9488_DISPOFF= const(0x28)
-    ILI9488_DISPON = const(0x29)
-
-    ILI9488_CASET  = const(0x2A)
-    ILI9488_PASET  =const( 0x2B)
-    ILI9488_RAMWR  = const(0x2C)
-    ILI9488_RAMRD  = const(0x2E)
-
-    ILI9488_PTLAR   =const(0x30)
-    ILI9488_MADCTL  =const(0x36)
-    ILI9488_PIXFMT  =const(0x3A)
-
-    ILI9488_FRMCTR1 =const(0xB1)
-    ILI9488_FRMCTR2 =const(0xB2)
-    ILI9488_FRMCTR3= const(0xB3)
-    ILI9488_INVCTR  =const(0xB4)
-    ILI9488_DFUNCTR =const(0xB6)
-
-    ILI9488_PWCTR1 = const(0xC0)
-    ILI9488_PWCTR2 = const(0xC1)
-    ILI9488_PWCTR3 = const(0xC2)
-    ILI9488_PWCTR4  =const(0xC3)
-    ILI9488_PWCTR5 = const(0xC4)
-    ILI9488_VMCTR1 = const(0xC5)
-    ILI9488_VMCTR2  =const(0xC7)
-
-    ILI9488_RDID1   =const(0xDA)
-    ILI9488_RDID2   =const(0xDB)
-    ILI9488_RDID3   =const(0xDC)
-    ILI9488_RDID4   =const(0xDD)
-
-    ILI9488_GMCTRP1 =const(0xE0)
-    ILI9488_GMCTRN1 =const(0xE1)
-    
-    MADCTL_MY  =const(0x80)
-    MADCTL_MX  =const(0x40)
-    MADCTL_MV  =const(0x20)
-    MADCTL_ML  =const(0x10)
-    MADCTL_RGB =const(0x00)
-    MADCTL_BGR =const(0x08)
-    MADCTL_MH  =const(0x04)
     ROTATE = {
         0: 0x88,
         90: 0xE8,
@@ -94,40 +89,81 @@ class Display(object):
         270: 0x28
     }
 
-    def __init__(self, spi, cs, dc, rst,width=320, height=480):
+    def __init__(self, spi, cs, dc, rst,
+                 width=240, height=320, rotation=0):
+        """Initialize OLED.
+
+        Args:
+            spi (Class Spi):  SPI interface for OLED
+            cs (Class Pin):  Chip select pin
+            dc (Class Pin):  Data/Command pin
+            rst (Class Pin):  Reset pin
+            width (Optional int): Screen width (default 240)
+            height (Optional int): Screen height (default 320)
+            rotation (Optional int): Rotation must be 0 default, 90. 180 or 270
+        """
         self.spi = spi
         self.cs = cs
         self.dc = dc
         self.rst = rst
         self.width = width
         self.height = height
+        self._size = (width, height)
+        if rotation not in self.ROTATE.keys():
+            raise RuntimeError('Rotation must be 0, 90, 180 or 270.')
+        else:
+            self.rotation = self.ROTATE[rotation]
+
         # Initialize GPIO pins and set implementation specific methods
-        self.cs.init(self.cs.OUT, value=1)
-        self.dc.init(self.dc.OUT, value=0)
-        self.rst.init(self.rst.OUT, value=1)
+        if implementation.name == 'circuitpython':
+            self.cs.switch_to_output(value=True)
+            self.dc.switch_to_output(value=False)
+            self.rst.switch_to_output(value=True)
+            self.reset = self.reset_cpy
+            self.write_cmd = self.write_cmd_cpy
+            self.write_data = self.write_data_cpy
+        else:
+            self.cs.init(self.cs.OUT, value=1)
+            self.dc.init(self.dc.OUT, value=0)
+            self.rst.init(self.rst.OUT, value=1)
+            self.reset = self.reset_mpy
+            self.write_cmd = self.write_cmd_mpy
+            self.write_data = self.write_data_mpy
         self.reset()
         # Send initialization commands
-        self.write_cmd(self.ILI9488_SWRESET)  # Software reset
+        self.write_cmd(self.SWRESET)  # Software reset
         sleep(.1)
-        self.write_cmd(self.ILI9488_GMCTRP1, 0x00, 0x03, 0x09,0x08,0x16,0x0A,0x3F,0x78,0x4C,0x09,0x0A,0x08,0x16,0x1A,0x0F)  # Pwr ctrl B
-        self.write_cmd(self.ILI9488_GMCTRN1,0x00,0x16,0x19,0x03,0x0F,0x05,0x32,0x45,0x46,0x04,0x0E,0x0D,0x35,0x37,0x0F)  # Pwr on seq. ctrl
-        self.write_cmd(self.ILI9488_PWCTR1,0x17,0x15)
-        self.write_cmd(self.ILI9488_PWCTR2,0x41)
-        self.write_cmd(self.ILI9488_VMCTR1,0x00,0x12,0x80)
-        self.write_cmd(self.ILI9488_MADCTL,0x48)
-        self.write_cmd(self.ILI9488_PIXFMT,0x66)
-        
-        self.write_cmd(0XB0,0x80)
-        self.write_cmd(self.ILI9488_FRMCTR1,0xA0)
-        self.write_cmd(self.ILI9488_INVCTR,0x02)
-        self.write_cmd(self.ILI9488_DFUNCTR,0x02,0x02)
-        self.write_cmd(0XE9,0x00)
-        self.write_cmd(0xF7,0xA9,0x51,0x2C,0x82)
-        self.write_cmd(self.ILI9488_SLPOUT)  # Exit sleep
+        self.write_cmd(self.PWCTRB, 0x00, 0xC1, 0x30)  # Pwr ctrl B
+        self.write_cmd(self.POSC, 0x64, 0x03, 0x12, 0x81)  # Pwr on seq. ctrl
+        self.write_cmd(self.DTCA, 0x85, 0x00, 0x78)  # Driver timing ctrl A
+        self.write_cmd(self.PWCTRA, 0x39, 0x2C, 0x00, 0x34, 0x02)  # Pwr ctrl A
+        self.write_cmd(self.PUMPRC, 0x20)  # Pump ratio control
+        self.write_cmd(self.DTCB, 0x00, 0x00)  # Driver timing ctrl B
+        self.write_cmd(self.PWCTR1, 0x23)  # Pwr ctrl 1
+        self.write_cmd(self.PWCTR2, 0x10)  # Pwr ctrl 2
+        self.write_cmd(self.VMCTR1, 0x3E, 0x28)  # VCOM ctrl 1
+        self.write_cmd(self.VMCTR2, 0x86)  # VCOM ctrl 2
+        self.write_cmd(self.MADCTL, self.rotation)  # Memory access ctrl
+        self.write_cmd(self.VSCRSADD, 0x00)  # Vertical scrolling start address
+        self.write_cmd(self.PIXFMT, 0x55)  # COLMOD: Pixel format
+        self.write_cmd(self.FRMCTR1, 0x00, 0x18)  # Frame rate ctrl
+        self.write_cmd(self.DFUNCTR, 0x08, 0x82, 0x27)
+        self.write_cmd(self.ENABLE3G, 0x00)  # Enable 3 gamma ctrl
+        self.write_cmd(self.GAMMASET, 0x01)  # Gamma curve selected
+        self.write_cmd(self.GMCTRP1, 0x0F, 0x31, 0x2B, 0x0C, 0x0E, 0x08, 0x4E,
+                       0xF1, 0x37, 0x07, 0x10, 0x03, 0x0E, 0x09, 0x00)
+        self.write_cmd(self.GMCTRN1, 0x00, 0x0E, 0x14, 0x03, 0x11, 0x07, 0x31,
+                       0xC1, 0x48, 0x08, 0x0F, 0x0C, 0x31, 0x36, 0x0F)
+        self.write_cmd(self.SLPOUT)  # Exit sleep
         sleep(.1)
-        self.write_cmd(self.ILI9488_DISPON)  # Display on
+        self.write_cmd(self.DISPLAY_ON)  # Display on
         sleep(.1)
         self.clear()
+
+    def _setwindowloc(self, pos0, pos1):
+        self.write_cmd(self.SET_COLUMN, *ustruct.pack(">HH", pos0[0], pos1[0]))
+        self.write_cmd(self.SET_PAGE, *ustruct.pack(">HH", pos0[1], pos1[1]))
+        self.write_cmd(self.WRITE_RAM)
 
     def block(self, x0, y0, x1, y1, data):
         """Write a block of data to display.
@@ -139,10 +175,7 @@ class Display(object):
             y1 (int):  Ending Y position.
             data (bytes): Data buffer to write.
         """
-        self.write_cmd(self.ILI9488_CASET, *ustruct.pack(">HH", x0, x1))
-        self.write_cmd(self.ILI9488_PASET, *ustruct.pack(">HH", y0, y1))
-
-        self.write_cmd(self.ILI9488_RAMWR)
+        self._setwindowloc((x0, y0), (x1, y1))
         self.write_data(data)
 
     def cleanup(self):
@@ -162,19 +195,19 @@ class Display(object):
         h = self.height
         # Clear display in 1024 byte blocks
         if color:
-            line = color.to_bytes(3, 'big') * (w * 8)
+            line = color.to_bytes(2, 'big') * (w * 8)
         else:
-            line = bytearray(w * 32)
+            line = bytearray(w * 16)
         for y in range(0, h, 8):
             self.block(0, y, w - 1, y + 7, line)
 
     def display_off(self):
         """Turn display off."""
-        self.write_cmd(self.ILI9488_DISPOFF)
+        self.write_cmd(self.DISPLAY_OFF)
 
     def display_on(self):
         """Turn display on."""
-        self.write_cmd(self.ILI9488_DISPON)
+        self.write_cmd(self.DISPLAY_ON)
 
     def draw_circle(self, x0, y0, r, color):
         """Draw a circle.
@@ -881,7 +914,17 @@ class Display(object):
         with open(path, "rb") as f:
             return f.read(buf_size)
 
-    def reset(self):
+    def reset_cpy(self):
+        """Perform reset: Low=initialization, High=normal operation.
+
+        Notes: CircuitPython implemntation
+        """
+        self.rst.value = False
+        sleep(.05)
+        self.rst.value = True
+        sleep(.05)
+
+    def reset_mpy(self):
         """Perform reset: Low=initialization, High=normal operation.
 
         Notes: MicroPython implemntation
@@ -897,7 +940,7 @@ class Display(object):
         Args:
             y (int): Number of pixels to scroll display.
         """
-        self.write_cmd(0x37, y >> 8, y & 0xFF)
+        self.write_cmd(self.VSCRSADD, y >> 8, y & 0xFF)
 
     def set_scroll(self, top, bottom):
         """Set the height of the top and bottom scroll margins.
@@ -909,47 +952,26 @@ class Display(object):
         if top + bottom <= self.height:
             middle = self.height - (top + bottom)
             print(top, middle, bottom)
-            self.write_cmd(0x33,
+            self.write_cmd(self.VSCRDEF,
                            top >> 8,
                            top & 0xFF,
                            middle >> 8,
                            middle & 0xFF,
                            bottom >> 8,
                            bottom & 0xFF)
-    def invertDisplay(self,i) :
-        self.write_cmd(self.ILI9488_INVON if i else self.ILI9488_INVOFF)
-    def setRotation(self,m):
-        rotation = m % 4 #can't be higher than 3
-        if rotation == 0:
-            self.write_cmd(self.ILI9488_MADCTL,self.MADCTL_MX | self.MADCTL_BGR)
-            self.width  = self.ILI9488_TFTWIDTH
-            self.height = self.ILI9488_TFTHEIGHT
-        elif rotation ==  1:
-            self.write_cmd(self.ILI9488_MADCTL,self.MADCTL_MV | self.MADCTL_BGR)
-            self.width  = self.ILI9488_TFTHEIGHT
-            self.height = self.ILI9488_TFTWIDTH
-        elif rotation ==  2:
-            self.write_cmd(self.ILI9488_MADCTL,self.MADCTL_MY |self. MADCTL_BGR)
-            self.width  = self.ILI9488_TFTWIDTH
-            self.height = self.ILI9488_TFTHEIGHT
-        elif rotation ==  3:
-            self.write_cmd(self.ILI9488_MADCTL,self.MADCTL_MX | self.MADCTL_MY | self.MADCTL_MV | self.MADCTL_BGR)
-            self.width  = self.ILI9488_TFTHEIGHT
-            self.height = self.ILI9488_TFTWIDTH
-            
-    # def sleep(self, enable=True):
-    #     """Enters or exits sleep mode.
 
-    #     Args:
-    #         enable (bool): True (default)=Enter sleep mode, False=Exit sleep
-    #     """
-    #     if enable:
-    #         self.write_cmd(self.SLPIN)
-    #     else:
-    #         self.write_cmd(self.SLPOUT)
+    def sleep(self, enable=True):
+        """Enters or exits sleep mode.
 
+        Args:
+            enable (bool): True (default)=Enter sleep mode, False=Exit sleep
+        """
+        if enable:
+            self.write_cmd(self.SLPIN)
+        else:
+            self.write_cmd(self.SLPOUT)
 
-    def write_cmd(self, command, *args):
+    def write_cmd_mpy(self, command, *args):
         """Write command to OLED (MicroPython).
 
         Args:
@@ -964,7 +986,26 @@ class Display(object):
         if len(args) > 0:
             self.write_data(bytearray(args))
 
-    def write_data(self, data):
+    def write_cmd_cpy(self, command, *args):
+        """Write command to OLED (CircuitPython).
+
+        Args:
+            command (byte): ILI9341 command code.
+            *args (optional bytes): Data to transmit.
+        """
+        self.dc.value = False
+        self.cs.value = False
+        # Confirm SPI locked before writing
+        while not self.spi.try_lock():
+            pass
+        self.spi.write(bytearray([command]))
+        self.spi.unlock()
+        self.cs.value = True
+        # Handle any passed data
+        if len(args) > 0:
+            self.write_data(bytearray(args))
+
+    def write_data_mpy(self, data):
         """Write data to OLED (MicroPython).
 
         Args:
@@ -974,3 +1015,18 @@ class Display(object):
         self.cs(0)
         self.spi.write(data)
         self.cs(1)
+
+    def write_data_cpy(self, data):
+        """Write data to OLED (CircuitPython).
+
+        Args:
+            data (bytes): Data to transmit.
+        """
+        self.dc.value = True
+        self.cs.value = False
+        # Confirm SPI locked before writing
+        while not self.spi.try_lock():
+            pass
+        self.spi.write(data)
+        self.spi.unlock()
+        self.cs.value = True
