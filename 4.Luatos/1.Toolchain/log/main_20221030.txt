@@ -1,0 +1,138 @@
+2022-10-30 13:17:30.332 core.py:73 INFO 2.1.60 start!
+2022-10-30 13:17:30.814 log_cleaner.py:59 INFO LogCleaner is disabled.
+2022-10-30 13:17:31.030 usb_device.py:1936 INFO usb device ready!
+2022-10-30 13:17:31.081 ui_main.py:285 INFO auto
+2022-10-30 13:17:31.082 ui_main.py:294 INFO zh_CN
+2022-10-30 13:17:31.134 ui_main.py:409 INFO ui start
+2022-10-30 13:19:04.123 ui_firmware.py:111 ERROR 设备连接模式选择2G，但是固件选择是soc，如果下载soc固件请勾选通用串口打印
+2022-10-30 13:19:04.125 ui_main.py:1169 INFO 发现有效的RDA端口 COM25
+2022-10-30 13:19:04.145 my_api.py:114 INFO [None, None]
+2022-10-30 13:19:04.145 host_device.py:651 INFO enter Trace
+2022-10-30 13:19:04.269 my_api.py:114 INFO [None, None]
+2022-10-30 13:19:10.939 usb_device.py:295 INFO usb device sleep
+2022-10-30 13:19:10.950 my_api.py:114 INFO [None, None]
+2022-10-30 13:19:10.972 my_api.py:114 INFO [None, None]
+2022-10-30 13:19:10.973 host_device.py:655 INFO quit Trace
+2022-10-30 13:19:13.760 usb_device.py:341 INFO usb device download
+2022-10-30 13:19:13.766 ui_firmware.py:104 INFO 准备下载
+2022-10-30 13:19:13.771 my_api.py:114 INFO [None, None]
+2022-10-30 13:19:13.772 usb_device.py:1956 INFO enter download
+2022-10-30 13:19:13.785 ui_firmware.py:104 INFO 解析固件中
+2022-10-30 13:19:13.900 ui_firmware.py:104 INFO 下载准备中
+2022-10-30 13:19:13.905 ui_firmware.py:104 INFO 等待模块接入
+2022-10-30 13:19:13.985 soc.py:442 INFO b'ESP32_Download 634:download stage ramrun:0\r\n'
+2022-10-30 13:19:13.995 ui_firmware.py:104 INFO 尝试同步中，请确保设备上电
+2022-10-30 13:19:13.996 soc.py:442 INFO b'ESP32_Download 637:download by usb mode\r\n'
+2022-10-30 13:19:14.306 soc.py:442 INFO b'ESP32_Download 707:download stage ramrun:1\r\n'
+2022-10-30 13:19:14.326 ui_firmware.py:104 INFO 识别到芯片，发送ramrun
+2022-10-30 13:19:14.396 soc.py:442 INFO b'ESP32_Download 751:ramrun ok\r\n'
+2022-10-30 13:19:14.586 soc.py:442 INFO b'ESP32_FlashDownload 387:download stage luatos_esp32.bin:1\r\n'
+2022-10-30 13:19:14.607 ui_firmware.py:104 INFO 下载luatos_esp32.bin:握手完成，发送文件信息
+2022-10-30 13:19:14.608 soc.py:442 INFO b'ESP32_FlashDownload 393:download stage luatos_esp32.bin:2\r\n'
+2022-10-30 13:19:14.610 ui_firmware.py:104 INFO 下载luatos_esp32.bin:下载中
+2022-10-30 13:19:14.710 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:0\r\n'
+2022-10-30 13:19:15.053 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:2\r\n'
+2022-10-30 13:19:15.194 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:4\r\n'
+2022-10-30 13:19:15.301 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:6\r\n'
+2022-10-30 13:19:15.630 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:8\r\n'
+2022-10-30 13:19:15.770 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:10\r\n'
+2022-10-30 13:19:15.912 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:13\r\n'
+2022-10-30 13:19:16.051 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:15\r\n'
+2022-10-30 13:19:16.380 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:17\r\n'
+2022-10-30 13:19:16.521 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:19\r\n'
+2022-10-30 13:19:16.662 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:21\r\n'
+2022-10-30 13:19:16.803 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:23\r\n'
+2022-10-30 13:19:17.162 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:26\r\n'
+2022-10-30 13:19:17.302 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:28\r\n'
+2022-10-30 13:19:17.442 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:30\r\n'
+2022-10-30 13:19:17.584 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:32\r\n'
+2022-10-30 13:19:17.912 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:34\r\n'
+2022-10-30 13:19:18.051 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:36\r\n'
+2022-10-30 13:19:18.192 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:39\r\n'
+2022-10-30 13:19:18.334 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:41\r\n'
+2022-10-30 13:19:18.677 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:43\r\n'
+2022-10-30 13:19:18.819 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:45\r\n'
+2022-10-30 13:19:18.960 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:47\r\n'
+2022-10-30 13:19:19.098 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:50\r\n'
+2022-10-30 13:19:19.428 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:52\r\n'
+2022-10-30 13:19:19.569 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:54\r\n'
+2022-10-30 13:19:19.709 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:56\r\n'
+2022-10-30 13:19:19.848 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:58\r\n'
+2022-10-30 13:19:20.178 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:60\r\n'
+2022-10-30 13:19:20.317 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:63\r\n'
+2022-10-30 13:19:20.458 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:65\r\n'
+2022-10-30 13:19:20.598 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:67\r\n'
+2022-10-30 13:19:20.958 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:69\r\n'
+2022-10-30 13:19:21.100 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:71\r\n'
+2022-10-30 13:19:21.239 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:73\r\n'
+2022-10-30 13:19:21.365 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:76\r\n'
+2022-10-30 13:19:21.740 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:78\r\n'
+2022-10-30 13:19:21.880 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:80\r\n'
+2022-10-30 13:19:22.021 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:82\r\n'
+2022-10-30 13:19:22.163 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:84\r\n'
+2022-10-30 13:19:22.522 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:86\r\n'
+2022-10-30 13:19:22.660 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:89\r\n'
+2022-10-30 13:19:22.803 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:91\r\n'
+2022-10-30 13:19:22.942 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:93\r\n'
+2022-10-30 13:19:23.098 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:95\r\n'
+2022-10-30 13:19:23.286 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:97\r\n'
+2022-10-30 13:19:23.287 soc.py:442 INFO b'ESP32_FlashDownload 423:speed 85287B/S\r\n'
+2022-10-30 13:19:23.387 soc.py:442 INFO b'ESP32_FlashDownload 425:download stage luatos_esp32.bin:3\r\n'
+2022-10-30 13:19:23.392 ui_firmware.py:104 INFO 下载luatos_esp32.bin:下载完成
+2022-10-30 13:19:25.724 soc.py:442 INFO b'ESP32_FlashDownload 387:download stage FileSystem:1\r\n'
+2022-10-30 13:19:25.727 ui_firmware.py:104 INFO 下载FileSystem:握手完成，发送文件信息
+2022-10-30 13:19:25.741 soc.py:442 INFO b'ESP32_FlashDownload 393:download stage FileSystem:2\r\n'
+2022-10-30 13:19:25.747 ui_firmware.py:104 INFO 下载FileSystem:下载中
+2022-10-30 13:19:25.850 soc.py:442 INFO b'ESP32_FlashDownload 421:download percent:0\r\n'
+2022-10-30 13:19:25.851 soc.py:442 INFO b'ESP32_FlashDownload 423:speed 37236B/S\r\n'
+2022-10-30 13:19:25.952 soc.py:442 INFO b'ESP32_FlashDownload 425:download stage FileSystem:3\r\n'
+2022-10-30 13:19:25.961 ui_firmware.py:104 INFO 下载FileSystem:下载完成
+2022-10-30 13:19:25.966 soc.py:442 INFO b'ESP32_Download 928:download OK\r\n'
+2022-10-30 13:19:25.982 usb_device.py:301 INFO usb device trace
+2022-10-30 13:19:26.147 usb_device.py:1958 INFO quit download
+2022-10-30 13:19:26.148 usb_device.py:1946 INFO enter Trace
+2022-10-30 13:19:26.151 my_api.py:114 INFO [None, None]
+2022-10-30 13:19:26.151 usb_device.py:1089 INFO search com done!
+2022-10-30 13:19:29.907 usb_device.py:289 ERROR 串口COM25发生故障COM25 CommError,[WinError 22] 设备不识别此命令。
+2022-10-30 13:19:40.218 usb_device.py:295 INFO usb device sleep
+2022-10-30 13:19:40.219 my_api.py:114 INFO [None, None]
+2022-10-30 13:19:41.077 usb_device.py:1954 INFO quit Trace
+2022-10-30 13:19:41.078 my_api.py:114 INFO [None, None]
+2022-10-30 13:19:44.782 usb_device.py:301 INFO usb device trace
+2022-10-30 13:19:44.783 my_api.py:114 INFO [None, None]
+2022-10-30 13:19:44.783 usb_device.py:1946 INFO enter Trace
+2022-10-30 13:19:44.805 usb_device.py:1089 INFO search com done!
+2022-10-30 13:19:46.785 usb_device.py:295 INFO usb device sleep
+2022-10-30 13:19:46.786 my_api.py:114 INFO [None, None]
+2022-10-30 13:19:46.817 my_api.py:114 INFO [None, None]
+2022-10-30 13:19:46.836 usb_device.py:1954 INFO quit Trace
+2022-10-30 13:22:32.531 net_main.py:289 ERROR 
+Traceback (most recent call last):
+  File "aiohttp\connector.py", line 999, in _create_direct_connection
+  File "aiohttp\connector.py", line 865, in _resolve_host
+  File "aiohttp\resolver.py", line 36, in resolve
+  File "asyncio\base_events.py", line 792, in getaddrinfo
+  File "concurrent\futures\thread.py", line 57, in run
+  File "socket.py", line 752, in getaddrinfo
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "net_main.py", line 256, in dt_report_update
+  File "aiohttp\client.py", line 521, in _request
+  File "aiohttp\connector.py", line 535, in connect
+  File "aiohttp\connector.py", line 892, in _create_connection
+  File "aiohttp\connector.py", line 1011, in _create_direct_connection
+aiohttp.client_exceptions.ClientConnectorError: Cannot connect to host luatos.com:443 ssl:default [getaddrinfo failed]
+
+2022-10-30 13:32:12.873 usb_device.py:295 INFO usb device sleep
+2022-10-30 13:32:12.874 my_api.py:114 INFO [None, None]
+2022-10-30 13:32:12.875 my_api.py:114 INFO [None, None]
+2022-10-30 13:32:12.977 my_api.py:114 INFO [None, None]
+2022-10-30 13:32:12.978 host_device.py:666 INFO task quit
+2022-10-30 13:32:12.979 my_api.py:114 INFO [None, None]
+2022-10-30 13:32:12.980 usb_device.py:1965 INFO task quit
+2022-10-30 13:32:12.981 my_api.py:114 INFO [None, None]
+2022-10-30 13:32:14.182 core.py:214 INFO event loop close timeout
+2022-10-30 13:32:14.510 core.py:242 INFO end!
